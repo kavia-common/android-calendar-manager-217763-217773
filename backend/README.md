@@ -21,6 +21,8 @@ Docker
 
 Notes
 - The backend container does not assume or reference any database/db_visualizer paths.
+- The backend build is fully decoupled from the database container; there is no cd/copy to any database/* directory.
+- Always build using backend as the build context: `docker build -t calendar-backend -f backend/Dockerfile backend`.
 - Provide the database connection via environment variables at runtime.
 
 API
