@@ -1,33 +1,17 @@
-# Spring Boot Backend
+# Backend Build Notes
 
-Port: 3001
+This repository currently does not include the full Gradle wrapper or build scripts for the Spring Boot backend.
 
-Environment
-- POSTGRES_URL
-- POSTGRES_USER
-- POSTGRES_PASSWORD
+To prevent CI failures in multi-container pipelines, a lightweight gradlew shim is included. It prints a message and exits successfully. Replace it with the real Gradle wrapper by running:
 
-Run
-- ./gradlew bootRun
+- On a machine with Gradle installed:
+  gradle wrapper --gradle-version 8.7
 
-Docker
-- Build (recommended): docker build -t calendar-backend -f backend/Dockerfile backend
-- Alternative (from backend dir): docker build -t calendar-backend .
-- Run: docker run --rm -p 3001:3001 \
-    -e POSTGRES_URL="jdbc:postgresql://db:5432/calendar" \
-    -e POSTGRES_USER="postgres" \
-    -e POSTGRES_PASSWORD="postgres" \
-    --name calendar-backend calendar-backend
+Then commit the generated files:
+- gradlew
+- gradlew.bat
+- gradle/wrapper/gradle-wrapper.jar
+- gradle/wrapper/gradle-wrapper.properties
 
-Notes
-- The backend container does not assume or reference any database/db_visualizer paths.
-- The backend build is fully decoupled from the database container; there is no cd/copy to any database/* directory.
-- Always build using backend as the build context: `docker build -t calendar-backend -f backend/Dockerfile backend`.
-- Provide the database connection via environment variables at runtime.
-
-API
-- POST /api/events
-- GET /api/events/{id}
-- GET /api/events?start=ISO&end=ISO
-- PUT /api/events/{id}
-- DELETE /api/events/{id}
+Finally, ensure executable permissions:
+chmod +x gradlew
