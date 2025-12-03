@@ -1,0 +1,28 @@
+# Exclude build outputs and VCS
+.build/
+build/
+.gradle/
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+
+# OS junk
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Tests (optional to keep image small)
+src/test/
+
+# Cache/temp
+tmp/
+out/
+
+# Node or other folders if present
+node_modules/
